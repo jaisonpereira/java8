@@ -26,6 +26,9 @@ public class Chapter2 {
 		 * de cast explicito, e como é uma unica instrução omitimos {} as chaves
 		 */
 		Consumer<Usuario> showAble = u -> System.out.println("Lambda like this: " + u.getNome());
+		usuarios.forEach(showAble);
+
+		usuarios.forEach(user -> System.out.println("Only Line : " + user.getNome()));
 
 	}
 
