@@ -25,7 +25,8 @@ public class IntefacesFuncionais {
 	}
 
 	/**
-	 * Podemos acessar as variaveis finais de um metodo local
+	 * Podemos acessar as variaveis finais de um metodo local porém ela deve ser
+	 * final,caso nao seja vc não podera alterar ela
 	 */
 	public static void accessFinalVariable() {
 		final Integer value = 5;
@@ -36,7 +37,8 @@ public class IntefacesFuncionais {
 				System.out.println("final count  value " + value);
 			}
 		}).start();
-
+		// nao compila
+		// value = 6;
 	}
 
 	public static void main(String[] args) {

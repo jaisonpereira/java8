@@ -38,4 +38,8 @@ public class Usuario {
 		this.pontos = pontos;
 	}
 
+	public void showNome() {
+		System.out.println(this.nome);
+	}
+
 }

@@ -25,8 +25,11 @@ public class Chapter2 {
 		 * implementação e utilizada para interfaces de um unico metodo sem uso
 		 * de cast explicito, e como é uma unica instrução omitimos {} as chaves
 		 */
-		Consumer<Usuario> showAble = u -> System.out.println("Lambda like this: " + u.getNome());
-		usuarios.forEach(showAble);
+
+		Consumer<Usuario> mostraMensagem = u -> System.out.println("antes de imprimir os nomes");
+		Consumer<Usuario> showAble = u -> System.out.println("Lambda like this andThen : " + u.getNome());
+		// antThen
+		usuarios.forEach(mostraMensagem.andThen(showAble));
 
 		usuarios.forEach(user -> System.out.println("Only Line : " + user.getNome()));
 
