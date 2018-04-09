@@ -14,6 +14,13 @@ public class Usuario {
 		this.pontos = pontos;
 	}
 
+	public Usuario(String nome) {
+		this.nome = nome;
+	}
+
+	public Usuario() {
+	}
+
 	public String getNome() {
 		return this.nome;
 	}
@@ -40,6 +47,12 @@ public class Usuario {
 
 	public void showNome() {
 		System.out.println(this.nome);
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "User :" + nome + " Pontos: " + pontos;
 	}
 
 }
