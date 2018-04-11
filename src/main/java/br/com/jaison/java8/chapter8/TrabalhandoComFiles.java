@@ -5,10 +5,11 @@ import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
-
-import ch.qos.logback.core.net.SyslogOutputStream;
 
 /**
  * 
@@ -17,6 +18,8 @@ import ch.qos.logback.core.net.SyslogOutputStream;
  *         trabalhando com arquivos usando stream java.nio.file
  */
 public class TrabalhandoComFiles {
+
+	public static final String CURRENT_PATH = "./src/main/java/br/com/jaison/java8/chapter8/";
 
 	/**
 	 * Listando arquivos do diretorio atual
@@ -34,8 +37,8 @@ public class TrabalhandoComFiles {
 			/**
 			 * necessario chamar toString
 			 */
-			Files.list(Paths.get("./src/main/java/br/com/jaison/java8/chapter8/"))
-					.filter(p -> p.toString().endsWith(".java")).forEach(System.out::println);
+			Files.list(Paths.get(CURRENT_PATH)).filter(p -> p.toString().endsWith(".java"))
+					.forEach(System.out::println);
 
 			/**
 			 * Aqui ele devolveria um stream dentro de outro stream Stream<Stream<String>>
@@ -53,9 +56,8 @@ public class TrabalhandoComFiles {
 			 * 
 			 * 
 			 */
-			IntStream chars = Files.list(Paths.get("./src/main/java/br/com/jaison/java8/chapter8/"))
-					.filter(p -> p.toString().endsWith(".java")).flatMap(p -> lines(p))
-					.flatMapToInt((String s) -> s.chars());
+			IntStream chars = Files.list(Paths.get(CURRENT_PATH)).filter(p -> p.toString().endsWith(".java"))
+					.flatMap(p -> lines(p)).flatMapToInt((String s) -> s.chars());
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -77,6 +79,28 @@ public class TrabalhandoComFiles {
 		} catch (IOException e) {
 			throw new UncheckedIOException(e);
 		}
+	}
+
+	/**
+	 * Podemos fazer um forEach e popular um Map<Path, Long>, no qual a chave é o
+	 * arquivo e o valor é a quantidade de linhas daquele arquivo:
+	 * 
+	 */
+	private static void descrobrindoQuantidadeLinhasPorArquivo() {
+		try {
+			Map<Path, Long> linesPerFile = new HashMap<>();
+			Files.list(Paths.get(CURRENT_PATH)).filter(p -> p.toString().endsWith(".java"))
+					.forEach(p -> linesPerFile.put(p, lines(p).count()));
+			System.out.println(linesPerFile);
+
+			Map<Path, Long> lines = Files.list(Paths.get("./br/com/casadocodigo/java8"))
+					.filter(p -> p.toString().endsWith(".java"))
+					.collect(Collectors.toMap(p -> p, p -> lines(p).count()));
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	public static void main(String[] args) {
