@@ -8,17 +8,22 @@ public class Usuario {
 
 	private boolean moderador;
 
-	public Usuario(String nome, int pontos) {
-		super();
-		this.nome = nome;
-		this.pontos = pontos;
+	public Usuario() {
 	}
 
 	public Usuario(String nome) {
 		this.nome = nome;
 	}
 
-	public Usuario() {
+	public Usuario(String nome, int pontos) {
+		super();
+		this.nome = nome;
+		this.pontos = pontos;
+	}
+
+	public Usuario(String nome, int pontos, boolean moderador) {
+		this(nome, pontos);
+		this.moderador = moderador;
 	}
 
 	public String getNome() {
@@ -52,7 +57,7 @@ public class Usuario {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return "User :" + nome + " Pontos: " + pontos;
+		return "User :" + this.nome + " Pontos: " + this.pontos;
 	}
 
 }
